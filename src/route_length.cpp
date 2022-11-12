@@ -8,26 +8,25 @@ int routeLength(std::pair<int,int> loc1, std::pair<int,int> loc2){
 //Use the formula d = 3963.0 * arccos[(sin(lat1) * sin(lat2)) + cos(lat1) * cos(lat2) * cos(long2 – long1)]
 //haversine Formula
 
-    unsigned long lat1 = loc1.first/ (180/M_PI);
-    unsigned long long1 = loc1.second/ (180/M_PI);
-    unsigned long lat2 = loc2.first/ (180/M_PI);
-    unsigned long long2 = loc2.second/ (180/M_PI);
+long double lat1 = loc1.first/ (180/M_PI);
+long double long1 = loc1.second/ (180/M_PI);
+long double lat2 = loc2.first/ (180/M_PI);
+long double long2 = loc2.second/ (180/M_PI);
 
-    long double dlong = long2 - long1;
-    long double dlat = lat2 - lat1;
- 
-    long double ans = pow(sin(dlat / 2), 2) +
-                          cos(lat1) * cos(lat2) *
-                          pow(sin(dlong / 2), 2);
- 
-    ans = 2 * asin(sqrt(ans));
-    // Kilometers, R = 6371
-    // Use R = 3956 for miles
-    long double R = 6371;
-     
-    // Calculate the result
-    ans = ans * R;
- 
-    return ans;
+long double dlong = long2 - long1;
+long double dlat = lat2 - lat1;
+
+//long double a = pow(sin)
+long double a = (pow(sin(dlat / 2), 2)) + cos(lat1)*cos(lat2)*pow(sin(dlong / 2), 2);
+
+a = 2 * atan2(sqrt(a), sqrt(1-a));
+// Kilometers, R = 6371
+// Use R = 3956 for miles
+long double R = 6371;
+    
+// Calculate the result
+a = a * R;
+
+return a;
 
 }

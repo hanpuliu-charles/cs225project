@@ -8,10 +8,10 @@ int routeLength(std::pair<int,int> loc1, std::pair<int,int> loc2){
 //Use the formula d = 3963.0 * arccos[(sin(lat1) * sin(lat2)) + cos(lat1) * cos(lat2) * cos(long2 – long1)]
 //haversine Formula
 
-unsigned long lat1 = loc1.first/ (180/M_PI);
-unsigned long long1 = loc1.second/ (180/M_PI);
-unsigned long lat2 = loc2.first/ (180/M_PI);
-unsigned long long2 = loc2.second/ (180/M_PI);
+    unsigned long lat1 = loc1.first/ (180/M_PI);
+    unsigned long long1 = loc1.second/ (180/M_PI);
+    unsigned long lat2 = loc2.first/ (180/M_PI);
+    unsigned long long2 = loc2.second/ (180/M_PI);
 
     long double dlong = long2 - long1;
     long double dlat = lat2 - lat1;

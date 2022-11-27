@@ -29,7 +29,6 @@ class RouteFinder {
         std::string airline_; // Airline code 
         std::string origin_; // Airport code
         std::string dest_; // Airport code
-
         int dist_;
 
     };

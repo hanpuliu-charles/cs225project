@@ -1,9 +1,8 @@
 #pragma once
 #include <string>
 
-using namespace std;
-class Airport
-{
+using namespace std; // Try not to do this, might pollute the namespace
+class Airport{
 
 public:
     Airport();

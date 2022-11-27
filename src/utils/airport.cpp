@@ -36,4 +36,7 @@ unsigned Airport::getAirportID() const {
 string Airport::getAirportName() const {
     return airport_name;
 }
+bool Airport::operator==(const Airport& other) const{
+    return other.airport_name==this->airport_name;
+}
     

@@ -2,5 +2,5 @@
 #include <utility>
 // using std::pair;
 
-int routeLength(std::pair<int,int> loc1, std::pair<int,int> loc2);
+int routeLength(std::pair<long double,long double> loc1, std::pair<long double, long double> loc2);
 

@@ -34,10 +34,10 @@ RouteFinder::RouteFinder(std::string filename){
     }
 }
 bool RouteFinder::isConnectedBFS(std::string origin, std::string dest){
-
+    return false;
 }
 int RouteFinder::shortestPath(std::string origin, std::string dest){
-
+    return -1;
 }
 
 

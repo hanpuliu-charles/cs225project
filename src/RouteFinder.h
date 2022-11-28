@@ -3,6 +3,8 @@
 #include <fstream>
 #include <unordered_map>
 #include <unordered_set>
+#include <vector>
+#include <list>
 
 // This is the main part of the project
 class RouteFinder {
@@ -21,20 +23,22 @@ class RouteFinder {
     //     }
 
     // };
-    class Route{
-        // Simplied model of a route
 
-        // parameterized constructor
-        Route(std::string airline, std::string origin, std::string dest, int dist):airline_{airline}, origin_{origin}, dest_{dest}, dist_{dist}{
-            // do something??? idk
-        }
+    // Haven't used it
+    // class Route{
+    //     // Simplied model of a route
 
-        std::string airline_; // Airline code 
-        std::string origin_; // Airport code
-        std::string dest_; // Airport code
-        int dist_;
+    //     // parameterized constructor
+    //     Route(std::string airline, std::string origin, std::string dest, int dist):airline_{airline}, origin_{origin}, dest_{dest}, dist_{dist}{
+    //         // do something??? idk
+    //     }
 
-    };
+    //     std::string airline_; // Airline code 
+    //     std::string origin_; // Airport code
+    //     std::string dest_; // Airport code
+    //     int dist_;
+
+    // };
     std::unordered_map<std::string, int> airport_to_int_;
     std::unordered_set<std::string> airports_;
 

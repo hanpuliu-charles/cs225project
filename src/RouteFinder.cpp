@@ -65,7 +65,12 @@ bool RouteFinder::isConnectedBFS(std::string origin, std::string dest){
 }
 int RouteFinder::shortestPath(std::string origin, std::string dest){
     // TODO
-    return -1;
+    int originNumber = airport_to_int_[origin];
+    int destNumber = airport_to_int_[dest];
+
+    // Initialize data structure with MAX INT for unconnected?
+
+    return -1; // Not connected;
 }
 
 // What sort of data do we want to output for 

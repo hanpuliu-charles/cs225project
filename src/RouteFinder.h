@@ -8,6 +8,9 @@
 class RouteFinder {
     public:
     RouteFinder(std::string filename);
+    bool isConnectedBFS(std::string origin, std::string dest);
+    int shortestPath(std::string origin, std::string dest);
+    
     private:
 
     // We should use a string...
@@ -37,7 +40,7 @@ class RouteFinder {
 
     std::vector<std::list<std::pair<int,int>>> adj_list_;
 
-
+    
     
 };
 

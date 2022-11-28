@@ -7,6 +7,8 @@
 #include <iostream>
 #include <fstream>
 
+// REPLACED , in Airports with - as it interferes with CSV Delimiting
+
 int main(){
     std::string airports_filename = "../data/airports_raw.dat";
     std::string routes_filename = "../data/routes_raw.dat";
@@ -48,7 +50,7 @@ int main(){
         std::string origin = brokenUpString[2]; // NOTE: all airport using 3 letter IATA names in routes
 
         std::string dest = brokenUpString[4];
-        std::cout << "origin " << airportToCoord[origin].first << " " << airportToCoord[origin].second << " dest " << airportToCoord[dest].first << " " << airportToCoord[dest].second << std::endl;
+        // std::cout << "origin " << airportToCoord[origin].first << " " << airportToCoord[origin].second << " dest " << airportToCoord[dest].first << " " << airportToCoord[dest].second << std::endl;
         std::cout << routeLength(airportToCoord[origin], airportToCoord[dest]) << std::endl;
         // airportToCoord[airport_code]=std::make_pair(lat, lon);
     }

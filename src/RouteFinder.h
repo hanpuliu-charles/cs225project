@@ -35,7 +35,7 @@ class RouteFinder {
     std::unordered_map<std::string, int> airport_to_int_;
     std::unordered_set<std::string> airports_;
 
-
+    std::vector<std::list<std::pair<int,int>>> adj_list_;
 
 
     

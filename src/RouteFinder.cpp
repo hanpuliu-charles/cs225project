@@ -1,5 +1,6 @@
 #include "RouteFinder.h"
 #include "utils/misc.h"
+#include <utility>
 // constructor
 RouteFinder::RouteFinder(std::string filename){
     // constructor
@@ -13,6 +14,7 @@ RouteFinder::RouteFinder(std::string filename){
         std::string origin = delimitedString[2]; // NOTE: all airport using 3 letter IATA names in routes
         std::string dest = delimitedString[4];
         std::string airline = delimitedString[0];
+        int dist = std::stoi(delimitedString[9]);
         // I want to use airport class, but the routes file only provide the IATA code for the airport so its pointless to create a another class.
         if (!airports_.count(origin)){
             airports_.insert(origin);
@@ -23,9 +25,10 @@ RouteFinder::RouteFinder(std::string filename){
             airport_to_int_[dest]=airports_counter++;
         }
 
+        
 
         // insert into graph too
-
+        adj_list_[airport_to_int_[origin]].push_front(std::make_pair(airport_to_int_[dest], dist));
         
 
     }

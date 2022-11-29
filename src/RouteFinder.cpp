@@ -4,6 +4,7 @@
 #include <queue>
 #include <functional>
 #include <iostream>
+#include <limits>
 
 // constructor
 RouteFinder::RouteFinder(std::string filename){
@@ -78,7 +79,9 @@ int RouteFinder::shortestPath(std::string origin, std::string dest){
     // TODO
     int originNumber = airport_to_int_[origin];
     int destNumber = airport_to_int_[dest];
-    std::vector<int> distances(adj_list_.size(), 9999999);
+    std::vector<int> distances(adj_list_.size(), std::numeric_limits<int>::max()); // Replace with max int
+    std::vector<int> previousAirport(adj_list_.size(), -1);
+    
     // Initialize data structure with MAX INT for unconnected?
 
     // create priority Queue pQ
@@ -89,21 +92,29 @@ int RouteFinder::shortestPath(std::string origin, std::string dest){
     std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, decltype(cmp)> pQ(cmp);
 
 
-    pQ.push(adj_list_[originNumber].front());
+    // pQ.push(adj_list_[originNumber].front());  //Incorrect
+    pQ.push(std::make_pair(originNumber, 0));
     distances[originNumber] = 0;
 
     while(!pQ.empty()){
-        int u = pQ.top().first;
+        int cur = pQ.top().first;
         pQ.pop();
+        std::cout << "Dijkstra" << cur << std::endl;
+        
+        for (std::list<std::pair<int,int>>::iterator it = adj_list_[cur].begin(); it != adj_list_[cur].end(); it++){
+            int v = it->first;
+            int dist = it->second;
 
-        std::list<std::pair<int,int>>::iterator it;
-        for (it = adj_list_[u].begin(); it != adj_list_[u].end(); it++){
-            int v = (*it).first;
-            int dist = (*it).second;
+            // only consider this if 
+            if (distances[v]> distances[cur] + dist){
+                distances[v] = distances[cur] + dist;
+                pQ.push(std::make_pair(v,distances[v])); // Should be decrease priority?
 
-            if (distances[v]> distances[u] + dist){
-                distances[v] = distances[u] + dist;
-                pQ.push(std::make_pair(v,distances[v]));
+
+                // Update node before
+                // previousAirport...
+                previousAirport[v] = cur; // Update the previous airport of v for shortest path
+
             }
         }
     }

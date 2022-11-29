@@ -2,6 +2,9 @@
 #include "utils/misc.h"
 #include <utility>
 #include <queue>
+#include <functional>
+#include <iostream>
+
 // constructor
 RouteFinder::RouteFinder(std::string filename){
     // constructor
@@ -9,7 +12,7 @@ RouteFinder::RouteFinder(std::string filename){
     ifs.open(filename);
     std::string line;
     int airports_counter = 0;
-    while(ifs >> line){
+    while(std::getline(ifs, line)){
         // Do something
         std::vector<std::string> delimitedString = delimitString(line, ',');
         std::string origin = delimitedString[2]; // NOTE: all airport using 3 letter IATA names in routes
@@ -67,9 +70,22 @@ int RouteFinder::shortestPath(std::string origin, std::string dest){
     // TODO
     int originNumber = airport_to_int_[origin];
     int destNumber = airport_to_int_[dest];
-
+    std::vector<int> distances(adj_list_.size(), 9999999);
     // Initialize data structure with MAX INT for unconnected?
 
+    // create priority Queue pQ
+    auto cmp = [](const pair<int, int>& lhs, const pair<int, int>& rhs)
+    {
+    return lhs.second > rhs.second;
+    };
+    std::priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(cmp)> pQ(cmp);
+
+
+    pQ.push(adj_list_[originNumber]);
+    distances[originNumber] = 0;
+    
+
+    //std::priority_queue minq2(adj_list_[originNumber].begin(), adj_list_[destNumber].end(), std::greater<int>());
     return -1; // Not connected;
 }
 

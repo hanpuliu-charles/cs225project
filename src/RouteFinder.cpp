@@ -72,6 +72,8 @@ bool RouteFinder::isConnectedBFS(std::string origin, std::string dest){
 
     return false;
 }
+
+// Should we change to output pair<int, vector<string>>, int is the length and vector contains all airports from start to end of the shortest path?
 int RouteFinder::shortestPath(std::string origin, std::string dest){
     // TODO
     int originNumber = airport_to_int_[origin];

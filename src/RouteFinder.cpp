@@ -74,19 +74,35 @@ int RouteFinder::shortestPath(std::string origin, std::string dest){
     // Initialize data structure with MAX INT for unconnected?
 
     // create priority Queue pQ
-    auto cmp = [](const pair<int, int>& lhs, const pair<int, int>& rhs)
+    auto cmp = [](const std::pair<int, int>& lhs, const std::pair<int, int>& rhs)
     {
     return lhs.second > rhs.second;
     };
-    std::priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(cmp)> pQ(cmp);
+    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, decltype(cmp)> pQ(cmp);
 
 
-    pQ.push(adj_list_[originNumber]);
+    pQ.push(adj_list_[originNumber].front());
     distances[originNumber] = 0;
+
+    while(!pQ.empty()){
+        int u = pQ.top().first;
+        pQ.pop();
+
+        std::list<std::pair<int,int>>::iterator it;
+        for (it = adj_list_[u].begin(); it != adj_list_[u].end(); it++){
+            int v = (*it).first;
+            int dist = (*it).second;
+
+            if (distances[v]> distances[u] + dist){
+                distances[v] = distances[u] + dist;
+                pQ.push(std::make_pair(v,distances[v]));
+            }
+        }
+    }
     
 
     //std::priority_queue minq2(adj_list_[originNumber].begin(), adj_list_[destNumber].end(), std::greater<int>());
-    return -1; // Not connected;
+    return distances[destNumber]; // Not connected;
 }
 
 // What sort of data do we want to output for 

@@ -23,14 +23,17 @@ RouteFinder::RouteFinder(std::string filename){
         if (!airports_.count(origin)){
             airports_.insert(origin);
             airport_to_int_[origin]=airports_counter++;
+            // We also need to add one entry in adj_list vector
+            adj_list_.push_back(std::list<std::pair<int,int>>());
         }
         if (!airports_.count(dest)) {
             airports_.insert(dest);
             airport_to_int_[dest]=airports_counter++;
+            adj_list_.push_back(std::list<std::pair<int,int>>());
         }
 
         
-
+        std::cout << origin << " " << dest << " " << dist << std::endl;
         // insert into graph too
         adj_list_[airport_to_int_[origin]].push_front(std::make_pair(airport_to_int_[dest], dist));
         
@@ -50,17 +53,20 @@ bool RouteFinder::isConnectedBFS(std::string origin, std::string dest){
         if (visited.count(cur) == 1){
             continue;
         }
+        // std::cout << "currently processing node " << cur << std::endl;
         // mark as visited
         visited.insert(cur);
         // visit cur in adj list and enqueue its neighbors
         std::list<std::pair<int,int>>::iterator iter = adj_list_[cur].begin();
         while(iter != adj_list_[cur].end()){
+            // std::cout
             int newnode = iter->first;
             q.push(newnode);
             if (newnode == destNumber) {
                 // we found it
                 return true;
             }
+            iter++;
         }
     }
 

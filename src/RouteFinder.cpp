@@ -5,6 +5,7 @@
 #include <functional>
 #include <iostream>
 #include <limits>
+#include <stack>
 
 // constructor
 RouteFinder::RouteFinder(std::string filename){
@@ -24,12 +25,14 @@ RouteFinder::RouteFinder(std::string filename){
         if (!airports_.count(origin)){
             airports_.insert(origin);
             airport_to_int_[origin]=airports_counter++;
+            int_to_airport_[airports_counter] = origin;
             // We also need to add one entry in adj_list vector
             adj_list_.push_back(std::list<std::pair<int,int>>());
         }
         if (!airports_.count(dest)) {
             airports_.insert(dest);
             airport_to_int_[dest]=airports_counter++;
+            int_to_airport_[airports_counter] = dest;
             adj_list_.push_back(std::list<std::pair<int,int>>());
         }
 
@@ -75,7 +78,7 @@ bool RouteFinder::isConnectedBFS(std::string origin, std::string dest){
 }
 
 // Should we change to output pair<int, vector<string>>, int is the length and vector contains all airports from start to end of the shortest path?
-int RouteFinder::shortestPath(std::string origin, std::string dest){
+std::pair<int, std::vector<std::string>> RouteFinder::shortestPath(std::string origin, std::string dest){
     // TODO
     int originNumber = airport_to_int_[origin];
     int destNumber = airport_to_int_[dest];
@@ -118,12 +121,32 @@ int RouteFinder::shortestPath(std::string origin, std::string dest){
             }
         }
     }
-    
 
-    //std::priority_queue minq2(adj_list_[originNumber].begin(), adj_list_[destNumber].end(), std::greater<int>());
-    return distances[destNumber]; // Not connected;
+    //Find the airport on the way to destination
+    int back_track = destNumber;
+    std::vector<int> route_airport_int;
+    route_airport_int.push_back(destNumber);
+    while(back_track != originNumber) {
+        back_track = previousAirport[back_track];
+        route_airport_int.push_back(back_track);
+    }
+     
+    //Changes the Number to Name of airport and reverse the order
+    std::vector<std::string> route_airport_string;
+    for (size_t i = route_airport_int.size(); i >= 0; i--) {
+        route_airport_string.push_back(int_to_airport[route_airport_int.at(i)]);
+    }
+    
+    /*** 
+     *  this is the original return
+     * 
+     *  std::priority_queue minq2(adj_list_[originNumber].begin(), adj_list_[destNumber].end(), std::greater<int>());
+     *  return distances[destNumber]; // Not connected;
+    */
+
+   //first is the distance to dest, second is the passing by airport 
+    auto to_return = std::make_pair<distances[destNumber], route_airport_string>;
+    return to_return;
 }
 
 // What sort of data do we want to output for 
-
-

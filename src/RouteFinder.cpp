@@ -134,7 +134,7 @@ std::pair<int, std::vector<std::string>> RouteFinder::shortestPath(std::string o
     //Changes the Number to Name of airport and reverse the order
     std::vector<std::string> route_airport_string;
     for (size_t i = route_airport_int.size() - 1; i >= 0; i--) {
-        route_airport_string.push_back(int_to_airpo rt[route_airport_int.at(i)]);
+        route_airport_string.push_back(int_to_airport_[route_airport_int.at(i)]);
     }
     
     /*** 
@@ -145,7 +145,7 @@ std::pair<int, std::vector<std::string>> RouteFinder::shortestPath(std::string o
     */
 
    //first is the distance to dest, second is the passing by airport 
-    std::pair<int, std::vector<std::string>> to_return = std::make_pair<distances[destNumber], route_airport_string>;
+    std::pair<int, std::vector<std::string>> to_return = std::make_pair(distances[destNumber], route_airport_string);
     return to_return;
 }
 

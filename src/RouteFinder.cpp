@@ -24,15 +24,15 @@ RouteFinder::RouteFinder(std::string filename){
         // I want to use airport class, but the routes file only provide the IATA code for the airport so its pointless to create a another class.
         if (!airports_.count(origin)){
             airports_.insert(origin);
-            airport_to_int_[origin]=airports_counter++;
-            int_to_airport_[airports_counter] = origin;
+            airport_to_int_[origin]=airports_counter;
+            int_to_airport_[airports_counter++] = origin;
             // We also need to add one entry in adj_list vector
             adj_list_.push_back(std::list<std::pair<int,int>>());
         }
         if (!airports_.count(dest)) {
             airports_.insert(dest);
-            airport_to_int_[dest]=airports_counter++;
-            int_to_airport_[airports_counter] = dest;
+            airport_to_int_[dest]=airports_counter;
+            int_to_airport_[airports_counter++] = dest;
             adj_list_.push_back(std::list<std::pair<int,int>>());
         }
 
@@ -133,8 +133,8 @@ std::pair<int, std::vector<std::string>> RouteFinder::shortestPath(std::string o
      
     //Changes the Number to Name of airport and reverse the order
     std::vector<std::string> route_airport_string;
-    for (size_t i = route_airport_int.size(); i >= 0; i--) {
-        route_airport_string.push_back(int_to_airport[route_airport_int.at(i)]);
+    for (size_t i = route_airport_int.size() - 1; i >= 0; i--) {
+        route_airport_string.push_back(int_to_airpo rt[route_airport_int.at(i)]);
     }
     
     /*** 
@@ -145,8 +145,52 @@ std::pair<int, std::vector<std::string>> RouteFinder::shortestPath(std::string o
     */
 
    //first is the distance to dest, second is the passing by airport 
-    auto to_return = std::make_pair<distances[destNumber], route_airport_string>;
+    std::pair<int, std::vector<std::string>> to_return = std::make_pair<distances[destNumber], route_airport_string>;
     return to_return;
 }
 
 // What sort of data do we want to output for 
+
+
+
+
+// Didn't include damping yet? should we?
+std::vector<float> powerIteration(std::vector<std::vector<float>> m, std::vector<float> v, int n) {
+    size_t m_size = m.size(); // M should be square
+    for (int times = 0; times < n; times++){
+        // Repeat n times
+        std::vector<float> temp(0.0, m_size);
+        for (int row = 0; row < m_size; row++){
+            float accumulator = 0.0;
+            for (int row = 0; row < m_size; row++){
+                accumulator += m[row][col] * v[col];
+            }
+            temp[row] = accumulator;
+
+        }
+        v = temp;
+    }
+    return v;
+}
+
+void normalizeMatrix(std::vector<std::vector<float>>& input ) {
+    std::vector<float> denominator;
+    for (size_t col = 0; col < input.size(); col++){
+        float accumulator = 0;
+        for (size_t row = 0; row < input.size(); row++){
+            accumulator += input[row][col];
+        }
+        denominator.push_back(accumulator);
+    }
+    for (size_t row = 0; row < input.size(); row++{
+        for (size_t col = 0; col < input.size(); col++){
+            if (denominator[col != 0]){
+                input[row][col] /= denominator[col];
+            } else {
+                input[row][col] = 1.0/(float)input.size();
+            }
+
+        }
+    }
+}
+

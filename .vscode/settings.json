@@ -87,6 +87,7 @@
         "string_view": "cpp",
         "numbers": "cpp",
         "semaphore": "cpp",
-        "shared_mutex": "cpp"
+        "shared_mutex": "cpp",
+        "queue": "cpp"
     }
 }

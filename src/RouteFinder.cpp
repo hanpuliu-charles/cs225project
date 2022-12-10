@@ -6,6 +6,7 @@
 #include <iostream>
 #include <limits>
 #include <stack>
+#include <algorithm>
 
 // constructor
 RouteFinder::RouteFinder(std::string filename){
@@ -37,12 +38,22 @@ RouteFinder::RouteFinder(std::string filename){
         }
 
         
-        std::cout << origin << " " << dest << " " << dist << std::endl;
+        // std::cout << origin << " " << dest << " " << dist << std::endl;
         // insert into graph too
         adj_list_[airport_to_int_[origin]].push_front(std::make_pair(airport_to_int_[dest], dist));
         
 
     }
+
+    // Build Adj_Matrix
+    adj_matr_= std::vector<std::vector<float>>(airports_counter,std::vector<float>(airports_counter,0));
+    for(int originAirport = 0; originAirport < airports_counter; originAirport++ ){
+        for (std::list<std::pair<int,int>>::iterator iter2 = adj_list_[originAirport].begin(); iter2 != adj_list_[originAirport].end(); iter2++){
+            adj_matr_[iter2->first][originAirport] += 1;
+        }
+    }
+    normalizeMatrix();
+
 }
 bool RouteFinder::isConnectedBFS(std::string origin, std::string dest){
     // TODO
@@ -156,19 +167,33 @@ std::pair<int, std::vector<std::string>> RouteFinder::shortestPath(std::string o
 
 // What sort of data do we want to output for 
 
-
+std::vector<std::string> RouteFinder::mostPopularAirport(int n){
+    std::vector<double> input(adj_matr_.size(),1.0/adj_matr_.size());
+    // std::cout << input[0] << std::endl;
+    std::vector<double> steadyStateProbabilty = powerIteration(input,10);
+    // for (size_t i = 0; i < adj_matr_.size(); i++){
+    //     std::cout << steadyStateProbabilty[i] << std::endl;
+    // }
+    std::vector<std::string> output(n,"");
+    for (int i = 0; i < n; i++){
+        output[i] = int_to_airport_[ std::distance(steadyStateProbabilty.begin(), std::max_element(steadyStateProbabilty.begin(), steadyStateProbabilty.end()))];
+        *(std::max_element(steadyStateProbabilty.begin(), steadyStateProbabilty.end()))=-1;
+    }
+    return output;
+}
 
 
 // Didn't include damping yet? should we?
-std::vector<float> powerIteration(std::vector<std::vector<float>> m, std::vector<float> v, int n) {
-    size_t m_size = m.size(); // M should be square
+std::vector<double> RouteFinder::powerIteration(std::vector<double> v, int n) {
+    size_t m_size = adj_matr_.size(); // M should be square
     for (int times = 0; times < n; times++){
+        std::cout << "Times: " << times << std::endl;
         // Repeat n times
-        std::vector<float> temp(0.0, m_size);
+        std::vector<double> temp(m_size,0.0);
         for (size_t row = 0; row < m_size; row++){
-            float accumulator = 0.0;
+            double accumulator = 0.0;
             for (size_t col = 0; col < m_size; col++){
-                accumulator += m[row][col] * v[col];
+                accumulator += adj_matr_[row][col] * v[col];
             }
             temp[row] = accumulator;
 
@@ -178,24 +203,32 @@ std::vector<float> powerIteration(std::vector<std::vector<float>> m, std::vector
     return v;
 }
 
-void normalizeMatrix(std::vector<std::vector<float>>& input ) {
-    std::vector<float> denominator;
-    for (size_t col = 0; col < input.size(); col++){
+void RouteFinder::normalizeMatrix() {
+    std::vector<double> denominator;
+    for (size_t col = 0; col < adj_matr_.size(); col++){
         float accumulator = 0;
-        for (size_t row = 0; row < input.size(); row++){
-            accumulator += input[row][col];
+        for (size_t row = 0; row < adj_matr_.size(); row++){
+            accumulator += adj_matr_[row][col];
         }
         denominator.push_back(accumulator);
     }
-    for (size_t row = 0; row < input.size(); row++){
-        for (size_t col = 0; col < input.size(); col++){
+    for (size_t row = 0; row < adj_matr_.size(); row++){
+        for (size_t col = 0; col < adj_matr_.size(); col++){
             if (denominator[col] != 0){
-                input[row][col] /= denominator[col];
+                adj_matr_[row][col] /= denominator[col];
             } else {
-                input[row][col] = 1.0/(float)input.size();
+                adj_matr_[row][col] = 1.0/(float)adj_matr_.size();
             }
 
         }
     }
+    // For debugging, will print out
+    // for (size_t i = 0; i < adj_matr_.size(); i++){
+    //     for (size_t j = 0; j < adj_matr_.size(); j++){
+    //         std::cout << adj_matr_[i][j] << "\t";
+    //     }
+    //     std::cout << std::endl;
+    // }
+
 }
 

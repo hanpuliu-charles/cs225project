@@ -5,7 +5,7 @@
 #include <fstream>
 #include "misc.h"
 #include <utility>
-#include <iostream>
+
 
 int routeLength(std::pair<long double,long double> loc1, std::pair<long double, long double> loc2){
     
@@ -26,10 +26,8 @@ int routeLength(std::pair<long double,long double> loc1, std::pair<long double, 
 
     a = 2 * atan2(sqrt(a), sqrt(1-a));
     // Kilometers, R = 6371
-    // Use R = 3956 for miles
     long double R = 6371;
         
-    // Calculate the result
     a = a * R;
 
     return a;

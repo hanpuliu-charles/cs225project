@@ -12,4 +12,10 @@ int main(int argc, char **argv){
 
     std::cout << "Testing Shortest Path unconnected" << std::endl;
     std::cout << R.shortestPath("AAA", "DDD") << std::endl;
+
+
+    //More testing on Dijkstra
+    RouteFinder D("../data/dijtest.dat");
+    std::cout << "Testing Dijkstra"<< std::endl;\
+    std::cout << D.shortestPath("DDD", "AAA") << std::endl; //should be 20 and D,E,C,A
 }

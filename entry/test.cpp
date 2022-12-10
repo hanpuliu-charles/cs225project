@@ -8,8 +8,12 @@ int main(int argc, char **argv){
     std::cout << R.isConnectedBFS("DDD", "EEE") <<std::endl; // should be true, directed graph
 
     std::cout << "Testing Shortest Path, expected 20" << std::endl;
-    std::cout << R.shortestPath("AAA", "CCC") << std::endl;
+    std::cout << R.shortestPath("AAA", "CCC").first << std::endl;
+    for (std::string a : R.shortestPath("AAA", "CCC").second) {
+        std::cout << a << " ";
+    }
+    std::cout << std::endl;
 
     std::cout << "Testing Shortest Path unconnected" << std::endl;
-    std::cout << R.shortestPath("AAA", "DDD") << std::endl;
+    std::cout << R.shortestPath("AAA", "DDD").first << std::endl;
 }

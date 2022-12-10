@@ -102,7 +102,7 @@ std::pair<int, std::vector<std::string>> RouteFinder::shortestPath(std::string o
     while(!pQ.empty()){
         int cur = pQ.top().first;
         pQ.pop();
-        std::cout << "Dijkstra" << cur << std::endl;
+        // std::cout << "Dijkstra" << cur << std::endl;
         
         for (std::list<std::pair<int,int>>::iterator it = adj_list_[cur].begin(); it != adj_list_[cur].end(); it++){
             int v = it->first;
@@ -122,6 +122,11 @@ std::pair<int, std::vector<std::string>> RouteFinder::shortestPath(std::string o
         }
     }
 
+    // Not found case check
+    if (previousAirport[destNumber]==-1){
+        return std::make_pair(-1,std::vector<std::string>());
+    }
+
     //Find the airport on the way to destination
     int back_track = destNumber;
     std::vector<int> route_airport_int;
@@ -133,7 +138,7 @@ std::pair<int, std::vector<std::string>> RouteFinder::shortestPath(std::string o
      
     //Changes the Number to Name of airport and reverse the order
     std::vector<std::string> route_airport_string;
-    for (size_t i = route_airport_int.size() - 1; i >= 0; i--) {
+    for (int i = route_airport_int.size() - 1; i >= 0; i--) {
         route_airport_string.push_back(int_to_airport_[route_airport_int.at(i)]);
     }
     
@@ -160,9 +165,9 @@ std::vector<float> powerIteration(std::vector<std::vector<float>> m, std::vector
     for (int times = 0; times < n; times++){
         // Repeat n times
         std::vector<float> temp(0.0, m_size);
-        for (int row = 0; row < m_size; row++){
+        for (size_t row = 0; row < m_size; row++){
             float accumulator = 0.0;
-            for (int row = 0; row < m_size; row++){
+            for (size_t col = 0; col < m_size; col++){
                 accumulator += m[row][col] * v[col];
             }
             temp[row] = accumulator;
@@ -182,9 +187,9 @@ void normalizeMatrix(std::vector<std::vector<float>>& input ) {
         }
         denominator.push_back(accumulator);
     }
-    for (size_t row = 0; row < input.size(); row++{
+    for (size_t row = 0; row < input.size(); row++){
         for (size_t col = 0; col < input.size(); col++){
-            if (denominator[col != 0]){
+            if (denominator[col] != 0){
                 input[row][col] /= denominator[col];
             } else {
                 input[row][col] = 1.0/(float)input.size();

@@ -11,7 +11,7 @@ class RouteFinder {
     public:
     RouteFinder(std::string filename);
     bool isConnectedBFS(std::string origin, std::string dest);
-    std::pair<int, std::vector<std::string>> RouteFinder::shortestPath(std::string origin, std::string dest);
+    std::pair<int, std::vector<std::string>> shortestPath(std::string origin, std::string dest);
     
     private:
 

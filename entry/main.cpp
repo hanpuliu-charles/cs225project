@@ -6,7 +6,7 @@ int main(int argc, char **argv){
     std::cout << "Please input the file path relative to current working directory, enter default for default" << std::endl;
     std::cin>>filepath;
     if (filepath == "default"){
-        filepath = "../data/routes_raw.dat";
+        filepath = "../data/processed_routes.dat";
     }
     RouteFinder r(filepath);
     while(true){

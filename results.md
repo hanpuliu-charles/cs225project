@@ -11,7 +11,7 @@ We chose to use BFS to traverse each of the airport to find whether two airports
 The file testroutes.dat is used as a make-shift test data to test whether two airports are connected. In this dataset, we provided five airports, AAA, BBB, CCC, DDD, EEE as shown below. The first three are connected, and the last two are connected. We test to find the shortest Path between AAA and DDD, which means the outputs should be false. Firstly, we test it with our own test case with the graph as shown below:
 
 
-![BFS](BFS.jpg)
+![BFS](bfs2.jpg)
 
 <br>
 
@@ -28,7 +28,7 @@ The Dijkstra Algorithm is chosen to find the shortest path between 2 airports an
 <br>
 First, we test it with our own test cases with this graph:
 <br>
-![DIJ](dijk.jpg)
+![DIJ](dij2.jpg)
 <br>
 The first test case is testing the path from DDD to AAA. The actual output should be DDD CCC EEE AAA <br>
 The second test case is testing the path from BBB to AAA. The actual output should be BBB CCC AAA <br>

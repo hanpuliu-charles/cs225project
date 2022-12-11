@@ -170,7 +170,7 @@ std::pair<int, std::vector<std::string>> RouteFinder::shortestPath(std::string o
 std::vector<std::string> RouteFinder::mostPopularAirport(int n){
     std::vector<double> input(adj_matr_.size(),1.0/adj_matr_.size());
     // std::cout << input[0] << std::endl;
-    std::vector<double> steadyStateProbabilty = powerIteration(input,10);
+    std::vector<double> steadyStateProbabilty = powerIteration(input,260); // Top 100 airport is stable at 260 iterations
     // for (size_t i = 0; i < adj_matr_.size(); i++){
     //     std::cout << steadyStateProbabilty[i] << std::endl;
     // }
@@ -187,7 +187,7 @@ std::vector<std::string> RouteFinder::mostPopularAirport(int n){
 std::vector<double> RouteFinder::powerIteration(std::vector<double> v, int n) {
     size_t m_size = adj_matr_.size(); // M should be square
     for (int times = 0; times < n; times++){
-        std::cout << "Times: " << times << std::endl;
+        // std::cout << "Times: " << times << std::endl;
         // Repeat n times
         std::vector<double> temp(m_size,0.0);
         for (size_t row = 0; row < m_size; row++){

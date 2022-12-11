@@ -34,7 +34,7 @@ int main(int argc, char **argv){
     std::cout << std::endl;
 
     std::cout << "Testing Shortest Path unconnected" << std::endl;
-    std::cout << R.shortestPath("AAA", "DDD") << std::endl;
+    std::cout << R.shortestPath("AAA", "DDD").first << std::endl;
 
 
     //More testing on Dijkstra

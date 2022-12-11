@@ -43,4 +43,11 @@ int main(int argc, char **argv){
     std::cout << D.shortestPath("DDD", "AAA") << std::endl; //should be 20 and D,E,C,A
     std::cout << D.shortestPath("BBB", "AAA") << std::endl; //should be 20 and B,C,A
 
+    RouteFinder P("../data/pageranktest.dat");
+    std::cout << "Testing Page Rank"<< std::endl;\
+    std::cout << P.mostPopularAirport(1) << std::endl; //should be A 
+    std::cout << P.mostPopularAirport(2) << std::endl; //should be A, B
+
+
+
 }

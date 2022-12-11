@@ -3,7 +3,7 @@
 int main(int argc, char **argv){
     // Entry point for main function
     std::string filepath;
-    std::cout << "Please input the file path relative to current working directory, enter default for default" << std::endl;
+    std::cout << "Please input the file path relative to current working directory, enter \"default\" for default" << std::endl;
     std::cin>>filepath;
     if (filepath == "default"){
         filepath = "../data/processed_routes.dat";
@@ -62,6 +62,10 @@ int main(int argc, char **argv){
             } while(dest.length() != 3);
 
             std::pair<int, std::vector<std::string>> output = r.shortestPath(origin, dest);
+            if (output.first == -1) {
+                std::cout << "They are not connected!!!" << std::endl;
+                continue;
+            }
             std::cout << "Shortest route from " << origin << " to " << dest << " is " << output.first << " km long." << std::endl;
             std::cout << "The path is: ";
             for (std::string airport : output.second){

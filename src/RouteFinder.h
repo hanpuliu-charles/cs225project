@@ -11,7 +11,8 @@ class RouteFinder {
     public:
     RouteFinder(std::string filename);
     bool isConnectedBFS(std::string origin, std::string dest);
-    std::pair<int, std::vector<std::string>> RouteFinder::shortestPath(std::string origin, std::string dest);
+    std::pair<int, std::vector<std::string>> shortestPath(std::string origin, std::string dest);
+    std::vector<std::string> mostPopularAirport(int n);
     
     private:
 
@@ -46,7 +47,11 @@ class RouteFinder {
     //first value is airport number, second value is distance
     std::vector<std::list<std::pair<int,int>>> adj_list_;
 
-    
+    // Use for Pagerank only!
+    std::vector<std::vector<float>> adj_matr_;
+
+    std::vector<double> powerIteration(std::vector<double> v, int n) ;
+    void normalizeMatrix();
     
 };
 

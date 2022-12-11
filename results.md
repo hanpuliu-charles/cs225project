@@ -35,7 +35,7 @@ The second test case is testing the path from BBB to AAA. The actual output shou
 
 
 ## Page Rank
-The Page Rank Algorithm is chosen to find a vector containing first n popular airports, given a number n. The Page Rank is first done by normalizing the adjacency matrix of the gragh and then we iterarate through the matrix. After numerous attempts, we found out that the Page Rank Matrix of the dataset converge after 260 iterations.
+The Page Rank Algorithm is chosen to find a vector containing first n popular airports, given a number n. The Page Rank is first done by normalizing the adjacency matrix of the gragh and then we iterarate through the matrix. After numerous attempts, we found out that the Page Rank Matrix of the dataset converge after 280 iterations.
 
 First, we test it with our own test cases with this graph: <br>
 ![test pagerank](pagerank.jpg) <br>
